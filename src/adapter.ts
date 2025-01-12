@@ -1,9 +1,33 @@
-import { TeamsAdapter } from "@microsoft/teams-ai";
+// Import required bot services.
+// See https://aka.ms/bot-services to learn more about the different parts of a bot.
+import {
+  CloudAdapter,
+  ConfigurationBotFrameworkAuthentication,
+  ConfigurationServiceClientCredentialFactory,
+} from "botbuilder";
 
 // This bot's main dialog.
 import config from "./config";
+import { TeamsAdapter } from '@microsoft/teams-ai';
+// const botFrameworkAuthentication = new ConfigurationBotFrameworkAuthentication(
+//   {},
+//   new ConfigurationServiceClientCredentialFactory({
+//     MicrosoftAppId: config.botId,
+//     MicrosoftAppPassword: process.env.BOT_PASSWORD,
+//     MicrosoftAppType: "MultiTenant",
+//   })
+// );
 
-const adapter = new TeamsAdapter(config);
+// Create adapter.
+// See https://aka.ms/about-bot-adapter to learn more about how bots work.
+const adapter = new TeamsAdapter(
+  {},
+  new ConfigurationServiceClientCredentialFactory({
+    MicrosoftAppId: config.botId,
+    MicrosoftAppPassword: process.env.BOT_PASSWORD,
+    MicrosoftAppType: 'MultiTenant',
+  })
+);
 
 // Catch-all for errors.
 const onTurnErrorHandler = async (context, error) => {
@@ -28,7 +52,7 @@ const onTurnErrorHandler = async (context, error) => {
   }
 };
 
-// Set the onTurnError for the singleton TeamsAdapter.
+// Set the onTurnError for the singleton CloudAdapter.
 adapter.onTurnError = onTurnErrorHandler;
 
 export default adapter;
