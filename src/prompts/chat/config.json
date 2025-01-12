@@ -11,6 +11,27 @@
     "temperature": 0.9,
     "top_p": 0.0,
     "presence_penalty": 0.6,
-    "frequency_penalty": 0.0
+    "frequency_penalty": 0.0,
+    "data_sources": [
+      {
+        "type": "azure_search",
+        "parameters": {
+          "endpoint": "$searchEndpoint",
+          "index_name": "$indexName",
+          "authentication": {
+            "type": "api_key",
+            "key": "$azureSearchKey"
+          },
+          "query_type": "vector",
+          "in_scope": true,
+          "strictness": 3,
+          "top_n_documents": 3,
+          "embedding_dependency": {
+            "type": "deployment_name",
+            "deployment_name": "$azureOpenAIEmbeddingDeploymentName"
+          }
+        }
+      }
+    ]
   }
 }
